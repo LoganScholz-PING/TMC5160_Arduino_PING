@@ -180,6 +180,9 @@ public:
 	void clearEncoderDeviationFlag();
 
 	//TODO end stops and stallguard config functions ?
+	void setEndStopRegisterContents(TMC5160_Reg::SW_MODE_Register swmode);
+	uint32_t getEndStopRegisterContents();
+	uint32_t testReadRegister();
 
 	/* Configure the integrated short protection. Check datasheet for details.
 	 * - s2vsLevel : 4 (highest sensitivity) to 15 ; 6 to 8 recommended ; reset default 6

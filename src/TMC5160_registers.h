@@ -207,7 +207,11 @@ namespace TMC5160_Reg {
     BitField<16, 4> iholddelay; // Controls the number of clock cycles for motor power down when entering standstill
   };
 
-  /* Switch mode configuration */
+  /* Switch mode configuration 
+  Addr = 0x34
+  Register name SW_MODE
+  Datasheet Section 6.3.2.1
+  */
   union SW_MODE_Register {
     uint32_t value;
     BitField< 0> stop_l_enable; // Enable automatic motor stop during active left reference switch input
@@ -221,7 +225,7 @@ namespace TMC5160_Reg {
     BitField< 8> latch_r_inactive; // Activate latching of the position to XLATCH upon an inactive going edge on REFR
     BitField< 9> en_latch_encoder; // Latch encoder position to ENC_LATCH upon reference switch event
     BitField<10> sg_stop; // Enable stop by stallGuard2 (also available in dcStep mode). Disable to release motor after stop event.
-    BitField<11> en_softstop; // Enable soft stop upon a stop event (uses the deceleration ramp settings)
+    BitField<11> en_softstop; // Enable soft stop upon a stop event (uses the deceleration ramp settings). 0: Hard Stop, 1: Soft Stop
   };
 
   /* Ramp status and switch event status */

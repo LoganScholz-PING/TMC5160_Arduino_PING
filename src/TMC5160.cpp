@@ -457,3 +457,23 @@ void TMC5160::setShortProtectionLevels(int s2vsLevel, int s2gLevel, int shortFil
 
 	writeRegister(TMC5160_Reg::SHORT_CONF, shortConf.value);
 }
+
+uint32_t TMC5160::getEndStopRegisterContents()
+{
+	TMC5160_Reg::SW_MODE_Register swModeStatus = {0};
+	swModeStatus.value = readRegister(TMC5160_Reg::SW_MODE);
+	return swModeStatus.value;
+}
+
+void TMC5160::setEndStopRegisterContents(TMC5160_Reg::SW_MODE_Register swmode)
+{
+	Serial.print("[DEBUG] swmode.value: 0b"); Serial.println(swmode.value, BIN);
+	writeRegister(TMC5160_Reg::SW_MODE, swmode.value);
+}
+
+uint32_t TMC5160::testReadRegister()
+{
+	TMC5160_Reg::RAMP_STAT_Register rampStatus = {0};
+	rampStatus.value = readRegister(TMC5160_Reg::RAMP_STAT);
+	return rampStatus.value;
+}
