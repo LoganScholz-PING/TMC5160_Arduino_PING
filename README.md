@@ -1,6 +1,8 @@
 # TMC5160
 Trinamic TMC5160 Arduino Library
 
+LS ADDITIONAL: THE INTENT OF THIS FORK IS TO FLESH OUT THE HOMING SWITCHES (Register SW_MODE_Register)
+
 This library is intended as a basic driver library for controlling Trinamic TMC5160 stepper motor driver chips in SPI or UART mode.
 
 It is tested on ESP32, Teensy and SAMD (Zero) platforms.
