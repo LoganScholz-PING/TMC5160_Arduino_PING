@@ -179,10 +179,17 @@ public:
 	/* Clear encoder deviation flag (deviation condition must be handled before) */
 	void clearEncoderDeviationFlag();
 
-	//TODO end stops and stallguard config functions ?
-	void setEndStopRegisterContents(TMC5160_Reg::SW_MODE_Register swmode);
-	uint32_t getEndStopRegisterContents();
-	uint32_t testReadRegister();
+	//TODO stallguard config functions ?
+
+	/* Read and update the SW_MODE register to control end-stop switch behavior (REFL and REFR) */
+	uint32_t getSwitchModeRegisterContents(); // Retrieve full contents of SW_MODE
+	void setSwitchModeRegisterContents(TMC5160_Reg::SW_MODE_Register swmode); // Update entire SW_MODE register with contents of swmode
+	bool isLeftAndRightEndstopSwapped();
+	void swapLeftAndRightEndstops();
+	void setRightEndstopActiveHigh();
+	void setRightEndstopActiveLow();
+	void setLeftEndstopActiveHigh();
+	void setLeftEndstopActiveLow();
 
 	/* Configure the integrated short protection. Check datasheet for details.
 	 * - s2vsLevel : 4 (highest sensitivity) to 15 ; 6 to 8 recommended ; reset default 6

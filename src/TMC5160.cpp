@@ -458,22 +458,68 @@ void TMC5160::setShortProtectionLevels(int s2vsLevel, int s2gLevel, int shortFil
 	writeRegister(TMC5160_Reg::SHORT_CONF, shortConf.value);
 }
 
-uint32_t TMC5160::getEndStopRegisterContents()
+uint32_t TMC5160::getSwitchModeRegisterContents()
 {
 	TMC5160_Reg::SW_MODE_Register swModeStatus = {0};
 	swModeStatus.value = readRegister(TMC5160_Reg::SW_MODE);
 	return swModeStatus.value;
 }
 
-void TMC5160::setEndStopRegisterContents(TMC5160_Reg::SW_MODE_Register swmode)
+void TMC5160::setSwitchModeRegisterContents(TMC5160_Reg::SW_MODE_Register swmode)
 {
-	Serial.print("[DEBUG] swmode.value: 0b"); Serial.println(swmode.value, BIN);
 	writeRegister(TMC5160_Reg::SW_MODE, swmode.value);
 }
 
-uint32_t TMC5160::testReadRegister()
+bool TMC5160::isLeftAndRightEndstopSwapped()
 {
-	TMC5160_Reg::RAMP_STAT_Register rampStatus = {0};
-	rampStatus.value = readRegister(TMC5160_Reg::RAMP_STAT);
-	return rampStatus.value;
+	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
+	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
+	if (swMode.swap_lr) return true;
+	
+	return false;
+}
+
+void swapLeftAndRightEndstops()
+{
+	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
+	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
+	swMode.swap_lr = !swMode.swap_lr;
+	writeRegister(TMC5160_Reg::SW_MODE, swMode.value);
+}
+
+void setRightEndstopActiveHigh()
+{
+	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
+	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
+	swMode.pol_stop_r = false;
+	if (!swMode.stop_r_enable) swMode.stop_r_enable = true;
+	writeRegister(TMC5160_Reg::SW_MODE, swMode.value);
+}
+
+void setRightEndstopActiveLow();
+()
+{
+	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
+	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
+	swMode.pol_stop_r = true;
+	if (!swMode.stop_r_enable) swMode.stop_r_enable = true;
+	writeRegister(TMC5160_Reg::SW_MODE, swMode.value);
+}
+
+void setLeftEndstopActiveHigh()
+{
+	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
+	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
+	swMode.pol_stop_l = false;
+	if (!swMode.stop_l_enable) swMode.stop_l_enable = true;
+	writeRegister(TMC5160_Reg::SW_MODE, swMode.value);
+}
+
+void setLeftEndstopActiveLow()
+{
+	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
+	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
+	swMode.pol_stop_l = true;
+	if (!swMode.stop_l_enable) swMode.stop_l_enable = true;
+	writeRegister(TMC5160_Reg::SW_MODE, swMode.value);
 }
