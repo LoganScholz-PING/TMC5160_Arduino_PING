@@ -4,6 +4,12 @@
 *.o
 *.obj
 
+# VS folders
+.vs/
+
+# ReadMe
+*.md
+
 # Precompiled Headers
 *.gch
 *.pch
