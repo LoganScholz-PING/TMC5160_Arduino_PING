@@ -479,7 +479,7 @@ bool TMC5160::isLeftAndRightEndstopSwapped()
 	return false;
 }
 
-void swapLeftAndRightEndstops()
+void TMC5160::swapLeftAndRightEndstops()
 {
 	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
 	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
@@ -487,7 +487,7 @@ void swapLeftAndRightEndstops()
 	writeRegister(TMC5160_Reg::SW_MODE, swMode.value);
 }
 
-void setRightEndstopActiveHigh()
+void TMC5160::setRightEndstopActiveHigh()
 {
 	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
 	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
@@ -496,8 +496,7 @@ void setRightEndstopActiveHigh()
 	writeRegister(TMC5160_Reg::SW_MODE, swMode.value);
 }
 
-void setRightEndstopActiveLow();
-()
+void TMC5160::setRightEndstopActiveLow()
 {
 	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
 	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
@@ -506,7 +505,7 @@ void setRightEndstopActiveLow();
 	writeRegister(TMC5160_Reg::SW_MODE, swMode.value);
 }
 
-void setLeftEndstopActiveHigh()
+void TMC5160::setLeftEndstopActiveHigh()
 {
 	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
 	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
@@ -515,7 +514,7 @@ void setLeftEndstopActiveHigh()
 	writeRegister(TMC5160_Reg::SW_MODE, swMode.value);
 }
 
-void setLeftEndstopActiveLow()
+void TMC5160::setLeftEndstopActiveLow()
 {
 	TMC5160_Reg::SW_MODE_Register swMode = { 0 };
 	swMode.value = readRegister(TMC5160_Reg::SW_MODE);
